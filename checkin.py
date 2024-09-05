@@ -41,6 +41,7 @@ if __name__ == '__main__':
             result = checkin.json()     
             # 获取签到结果
             status = result.get('message')
+            total = int(float(result.get('list')[0]['balance']))
 
             # 获取账号当前状态
             result = state.json()
@@ -49,11 +50,12 @@ if __name__ == '__main__':
             # 获取账号email
             email = result['data']['email']
 
-            if status == "Checkin! Get 1 Day":
+            if "Checkin!" in status:
                 success += 1
-                message_status = "签到成功，会员天数 + 1"
+                count = re.findall(r'\d+', status)[0]
+                message_status = "签到成功，获得" + count + "点数，当前总点数为" + total + "点"
             elif status == "Checkin Repeats! Please Try Tomorrow":
-                message_status = "今日已签到"
+                message_status = "今日已签到，当前总点数为" + total + "点"
             else:
                 fail += 1
                 message_status = "签到失败，请检查..."
