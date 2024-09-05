@@ -53,9 +53,9 @@ if __name__ == '__main__':
             if "Checkin!" in status:
                 success += 1
                 count = re.findall(r'\d+', status)[0]
-                message_status = "签到成功，获得" + count + "点数，当前总点数为" + total + "点"
+                message_status = "签到成功，获得" + count + "点数，当前总点数为" + str(total) + "点"
             elif status == "Checkin Repeats! Please Try Tomorrow":
-                message_status = "今日已签到，当前总点数为" + total + "点"
+                message_status = "今日已签到，当前总点数为" + str(total) + "点"
             else:
                 fail += 1
                 message_status = "签到失败，请检查..."
